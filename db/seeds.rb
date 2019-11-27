@@ -5,3 +5,22 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+require 'faker'
+
+Note.destroy_all
+User.destroy_all
+
+5.times do |index|
+  User.create({
+    username: Faker::Movies::HarryPotter.character,
+    email: Faker::Internet.email
+  })
+
+  Note.create({
+    title: Faker::Lorem.sentence,
+    body: Faker::Lorem.sentence,
+    user_id: index
+  })
+end
