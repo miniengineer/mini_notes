@@ -2,19 +2,13 @@ module Api
   module V1
     class NotesController < ApplicationController
       protect_from_forgery with: :null_session
-      #GET /notes
+      #GET /users/:user_id/notes
       def index
-        notes = Note.all
+        notes = Note.where(user_id: params[:user_id])
         render json: {status: "Success", message: "Loaded notes", data: notes}, status: :ok
       end
 
-      #GET /notes/:user_id
-      def show
-        note = Note.where(user_id: params[:id])
-        render json: {status: "Success", message: "Loaded the note info", data: note}, status: :ok
-      end
-
-      #POST /notes
+      #POST /users/:user_id/notes
       def create
         note = Note.new(note_params)
 
@@ -25,14 +19,14 @@ module Api
         end
       end
 
-      #DELETE /notes/:id
+      #DELETE /users/:user_id/notes/:id
       def destroy
         note = Note.find(params[:id])
         note.destroy
         render json: {status: "Success", message: "Deleted note", data: note}, status: :ok
       end
 
-      #PATCH /notes/:id
+      #PATCH /users/:user_id/notes/:id
       def update
         note = Note.find(params[:id])
 
@@ -46,7 +40,7 @@ module Api
       private
 
       def note_params
-        params.permit(:title, :body, :user_id)
+        params.permit(:title, :body, :user_id, :note, :updated_at)
       end
 
     end
