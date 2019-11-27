@@ -17,7 +17,7 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    axios.get('http://localhost:3000/api/v1/notes').then(response => this.setState({ miniNotes: response.data.data }));
+    axios.get('/api/v1/notes').then(response => this.setState({ miniNotes: response.data.data }));
   }
 
   // selectNote = (note, index) => this.setState({ selectedNoteIndex: index, selectedNote: note });
