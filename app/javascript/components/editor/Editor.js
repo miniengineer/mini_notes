@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import debounce from '../utils/utils';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
@@ -9,28 +10,29 @@ class Editor extends React.Component {
     super();
 
     this.state = {
-      text: '',
+      body: '',
       title: '',
       id: ''
     };
   }
 
   updateBody = async (value) => {
-    await this.setState({ text: value});
+    await this.setState({ body: value});
     this.update();
   }
 
+  //make PATCH requests once user stop typing for 1.5 seconds
   update = debounce(() => {
     this.props.noteUpdate(this.state.id, {
       title: this.state.title,
-      body: this.state.text
+      body: this.state.body
     })
   }, 1500);
 
   //show selected note body when note is selected
   componentDidMount = () => {
     this.setState({
-      text: this.props.selectedNote.body,
+      body: this.props.selectedNote.body,
       title: this.props.selectedNote.title,
       id: this.props.selectedNote.id
     });
@@ -40,7 +42,7 @@ class Editor extends React.Component {
     //change only if selected note is different from the one which is displayed
     if (this.props.selectedNote.id !== this.state.id) {
       this.setState({
-        text: this.props.selectedNote.body,
+        body: this.props.selectedNote.body,
         title: this.props.selectedNote.title,
         id: this.props.selectedNote.id
       });
@@ -53,7 +55,7 @@ class Editor extends React.Component {
     return(
      <div className={classes.editorContainer}>
       <ReactQuill
-       value={this.state.text}
+       value={this.state.body}
        onChange={this.updateBody}
        placeholder='Anything you want to write down?'>
        </ReactQuill>
