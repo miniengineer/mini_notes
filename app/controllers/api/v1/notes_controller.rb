@@ -1,6 +1,7 @@
 module Api
   module V1
     class NotesController < ApplicationController
+      protect_from_forgery with: :null_session
       #GET /notes
       def index
         notes = Note.all
