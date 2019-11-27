@@ -8,7 +8,7 @@ import App from '../components/App';
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <App name="Mini" />,
+    <App name="Engineer" />,
     document.body.appendChild(document.createElement('div')),
   )
 })
