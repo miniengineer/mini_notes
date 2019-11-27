@@ -8,7 +8,7 @@ module Api
         render json: {status: "Success", message: "Loaded notes", data: notes}, status: :ok
       end
 
-      #GET /notes/:id (get notes by user_id)
+      #GET /notes/:user_id
       def show
         note = Note.where(user_id: params[:id])
         render json: {status: "Success", message: "Loaded the note info", data: note}, status: :ok
