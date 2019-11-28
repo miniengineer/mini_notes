@@ -31,9 +31,10 @@ class App extends React.Component {
 
   selectNote = (note, index) => this.setState({ selectedNoteIndex: index, selectedNote: note });
 
-  noteUpdate = (id, noteObj) => {
+  noteUpdate = async (id, noteObj) => {
     //update note in the db
-    axios.patch(`/api/v1/users/${this.state.currentUser.id}/notes/${id}`, noteObj);
+    const updatedNote = await axios.patch(`/api/v1/users/${this.state.currentUser.id}/notes/${id}`, noteObj);
+    console.log(updatedNote);
   }
 
   newMiniNote = async (title) => {
@@ -79,7 +80,9 @@ class App extends React.Component {
         this.setState({ currentUser });
         axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data, isLoggedIn: true }));
       } else {
-        await axios.post('/api/v1/users', { username, email });
+        const response = await axios.post('/api/v1/users', { username, email });
+        const newUser = response.data.data.find(user => user.email === email);
+        this.setState({ currentUser: newUser, isLoggedIn: true });
       }
     };
 
