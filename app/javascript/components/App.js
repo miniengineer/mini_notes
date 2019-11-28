@@ -1,15 +1,19 @@
 import React from 'react';
 import './App.css';
 
+//components
 import Sidebar from './sidebar/Sidebar';
 import Editor from './editor/Editor';
+import Login from "./Login";
 
 import axios from 'axios';
+import { GoogleLogout } from 'react-google-login';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      isLoggedIn: false,
       currentUser: {
         id: 2,
         username: 'Fabian Prewett',
@@ -65,11 +69,35 @@ class App extends React.Component {
     this.setState({ miniNotes: afterDeletion.data.data });
   }
 
+    //successfull google login
+    onSuccessResponce = (responce) => {
+      const username = responce.profileObj.givenName;
+      const email = responce.profileObj.email;
+      console.log({username, email});
+    };
+
+    onFailureResponce = (responce) => {
+      console.log(responce);
+    };
+
+    //logout from google account
+    logout = () => {
+      console.log("logout success");
+      this.setState({ isLoggedIn: false});
+    }
+
+    onFailure = () => {
+      console.log("failed to logout");
+    }
+
   render() {
 
     return (
       <div className='app-container'>
-        <Sidebar
+        {
+          this.state.isLoggedIn ?
+          <div>
+            <Sidebar
          selectedNoteIndex = {this.state.selectedNoteIndex}
          miniNotes = {this.state.miniNotes}
          deleteNote={this.deleteMiniNote}
@@ -83,6 +111,14 @@ class App extends React.Component {
           miniNotes={this.state.miniNotes}
           noteUpdate={this.noteUpdate}></Editor> :
           null
+        }
+        <GoogleLogout
+            className="logout"
+            clientId="810788223244-0j2dtdo2lu1h09osvse6t79rpke8g0km.apps.googleusercontent.com"
+            buttonText="Logout"
+            onLogoutSuccess={this.logout} onFailure={this.onFailure} >
+           </GoogleLogout>
+          </div> : <Login onSuccessResponce={this.onSuccessResponce} onFailureResponce={this.onFailureResponce} />
         }
       </div>
     );
