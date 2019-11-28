@@ -2,6 +2,7 @@ module Api
   module V1
     class NotesController < ApplicationController
       protect_from_forgery with: :null_session
+      skip_before_action :verify_authenticity_token
       #GET /users/:user_id/notes
       def index
         notes = Note.where(user_id: params[:user_id])
@@ -40,7 +41,7 @@ module Api
       private
 
       def note_params
-        params.permit(:title, :body, :user_id, :note, :updated_at)
+        params.permit(:title, :body, :user_id, :updated_at, :note)
       end
 
     end

@@ -29,7 +29,7 @@ class App extends React.Component {
 
   noteUpdate = (id, noteObj) => {
     //update note in the db
-    axios.patch(`/api/v1/users/${this.state.currentUser.id}/notes/${id}`, noteObj).then(response => console.log(response.data.data));
+    axios.patch(`/api/v1/users/${this.state.currentUser.id}/notes/${id}`, noteObj);
   }
 
   newMiniNote = async (title) => {
@@ -39,9 +39,8 @@ class App extends React.Component {
       body: ''
     };
     //add this note to the db
-    const newID = await axios.post(`/api/v1/users/${this.state.currentUser.id}/notes`);
+    const newID = await axios.post(`/api/v1/users/${this.state.currentUser.id}/notes`, miniNote);
     //replace currently selected note with the one just created
-    console.log({newID});
     await this.setState({ miniNotes: [...this.state.miniNotes, miniNote] });
     const newMiniNoteIndex = this.state.miniNotes.indexOf(this.state.miniNotes.filter(note => note.id === newID.data.data.id)[0]);
     this.setState({ selectNote: this.state.miniNotes[newMiniNoteIndex], selectedNoteIndex: newMiniNoteIndex });
@@ -49,7 +48,6 @@ class App extends React.Component {
 
   deleteMiniNote = async (note) => {
     const miniNoteIndex = this.state.miniNotes.indexOf(note);
-    console.log(miniNoteIndex);
     //if we are deleting the selected note, we need to deselect it first
     if (this.state.selectedNoteIndex === miniNoteIndex) {
       this.setState({
