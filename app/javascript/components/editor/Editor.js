@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import { Editor, EditorState } from 'draft-js';
 
-class Editor extends React.Component {
+class EditorT extends React.Component {
   constructor() {
     super();
 
@@ -66,4 +66,4 @@ class Editor extends React.Component {
   }
 }
 
-export default withStyles(styles)(Editor);
+export default withStyles(styles)(EditorT);
