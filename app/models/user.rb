@@ -1,5 +1,5 @@
 class User < ApplicationRecord
   has_many :notes
-  validates :username, presence: true
-  validates :email, presence: true
+  validate :username, presence: true
+  validate :email, presence: true
 end
