@@ -76,8 +76,8 @@ class App extends React.Component {
       const resp = await axios.get('/api/v1/users');
       const currentUser = resp.data.data.find(user => user.email === email);
       if (currentUser) {
-        console.log({ currentUser });
-        // axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data }));
+        this.setState({ currentUser });
+        axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data, isLoggedIn: true }));
       } else {
         await axios.post('/api/v1/users', { username, email });
       }
