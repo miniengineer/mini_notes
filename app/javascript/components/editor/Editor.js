@@ -9,7 +9,7 @@ import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 
 
-class EditorT extends React.Component {
+class Editor extends React.Component {
   constructor() {
     super();
 
@@ -69,4 +69,4 @@ class EditorT extends React.Component {
   }
 }
 
-export default withStyles(styles)(EditorT);
+export default withStyles(styles)(Editor);
