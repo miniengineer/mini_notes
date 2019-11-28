@@ -11,7 +11,7 @@ class App extends React.Component {
     super();
     this.state = {
       currentUser: {
-        id: 4,
+        id: 2,
         username: 'Fabian Prewett',
         email: 'fabian.p@gmail.com'
       },
