@@ -25,9 +25,9 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data }));
-  }
+  // componentDidMount = () => {
+  //   axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data }));
+  // }
 
   selectNote = (note, index) => this.setState({ selectedNoteIndex: index, selectedNote: note });
 
@@ -70,10 +70,17 @@ class App extends React.Component {
   }
 
     //successfull google login
-    onSuccessResponce = (responce) => {
+    onSuccessResponce = async (responce) => {
       const username = responce.profileObj.givenName;
       const email = responce.profileObj.email;
-      console.log({username, email});
+      const resp = await axios.get('/api/v1/users');
+      const currentUser = resp.data.data.find(user => user.email === email);
+      if (currentUser) {
+        console.log({ currentUser });
+        // axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data }));
+      } else {
+        await axios.post('/api/v1/users', { username, email });
+      }
     };
 
     onFailureResponce = (responce) => {
