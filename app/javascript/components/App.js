@@ -47,7 +47,7 @@ class App extends React.Component {
     //replace currently selected note with the one just created
     await this.setState({ miniNotes: [...this.state.miniNotes, miniNote] });
     const newMiniNoteIndex = this.state.miniNotes.indexOf(this.state.miniNotes.filter(note => note.id === newID.data.data.id)[0]);
-    this.setState({ selectNote: this.state.miniNotes[newMiniNoteIndex], selectedNoteIndex: newMiniNoteIndex });
+    this.setState({ selectedNote: this.state.miniNotes[newMiniNoteIndex], selectedNoteIndex: newMiniNoteIndex });
   }
 
   deleteMiniNote = async (note) => {
@@ -61,7 +61,7 @@ class App extends React.Component {
     } else {
       this.state.miniNotes.length > 1 ?
       this.selectNote(this.state.miniNotes[this.state.selectedNoteIndex - 1], this.state.selectedNoteIndex - 1) :
-      this.setState({ selectedNoteIndex: null, selectNote: null });
+      this.setState({ selectedNoteIndex: null, selectedNote: null });
     }
 
     await axios.delete(`/api/v1/users/${this.state.currentUser.id}/notes/${note.id}`);
