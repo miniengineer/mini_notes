@@ -81,7 +81,7 @@ class EditorT extends React.Component {
              alignleft aligncenter alignright alignjustify | \
              bullist numlist outdent indent | removeformat | help'
          }}
-         onChange={this.handleEditorChange}
+         onChange={this.updateBody}
        />
      </div>
     );
