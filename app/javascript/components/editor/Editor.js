@@ -1,14 +1,10 @@
 import React from 'react';
-//import ReactQuill from 'react-quill';
-//import 'react-quill/dist/quill.snow.css';
 import debounce from '../utils/utils';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 
-// import SunEditor from "suneditor-react";
-// import "suneditor/dist/css/suneditor.min.css";
-
-import { Editor } from '@tinymce/tinymce-react';
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
 
 
 class EditorT extends React.Component {
@@ -58,31 +54,14 @@ class EditorT extends React.Component {
   render() {
     const { classes } = this.props;
 
+
     return(
      <div className={classes.editorContainer}>
-      {/* <ReactQuill
+      <ReactQuill
        value={this.state.body}
        onChange={this.updateBody}
        placeholder='Anything you want to write down?'>
-       </ReactQuill> */}
-       {/* <SunEditor onChange={this.updateBody} /> */}
-       <Editor
-         initialValue={this.state.body}
-         init={{
-           height: 500,
-           menubar: false,
-           plugins: [
-             'advlist autolink lists link image charmap print preview anchor',
-             'searchreplace visualblocks code fullscreen',
-             'insertdatetime media table paste code help wordcount'
-           ],
-           toolbar:
-             'undo redo | formatselect | bold italic backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help'
-         }}
-         onChange={this.updateBody}
-       />
+       </ReactQuill>
      </div>
     );
   }

@@ -17,7 +17,7 @@ html, body {
   box-sizing: border-box;
 }
 
-/* .quill {
+.quill {
   height: 100%;
   box-sizing: border-box;
   width: calc(100% - 300px);
@@ -30,7 +30,7 @@ html, body {
 }
 .ql-editor {
   cursor: text;
-} */
+}
 
 .MuiListItem-root.Mui-selected {
   background-color: #d4d8e8 !important;
@@ -43,7 +43,4 @@ html, body {
   left: calc(50% - 165px);
 }
 
-.sun-editor {
-  width: 70%;
-  margin-left: 35%;
-}
+
