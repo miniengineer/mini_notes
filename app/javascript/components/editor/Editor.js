@@ -54,11 +54,11 @@ class Editor extends React.Component {
 
     return(
      <div className={classes.editorContainer}>
-      {/* <ReactQuill
+      <ReactQuill
        value={this.state.body}
        onChange={this.updateBody}
        placeholder='Anything you want to write down?'>
-       </ReactQuill> */}
+       </ReactQuill>
      </div>
     );
   }
