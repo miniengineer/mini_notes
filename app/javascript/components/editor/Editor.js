@@ -1,9 +1,13 @@
 import React from 'react';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+//import ReactQuill from 'react-quill';
+//import 'react-quill/dist/quill.snow.css';
 import debounce from '../utils/utils';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
+
+import SunEditor from "suneditor-react";
+import "suneditor/dist/css/suneditor.min.css";
+
 
 class EditorT extends React.Component {
   constructor() {
@@ -54,11 +58,12 @@ class EditorT extends React.Component {
 
     return(
      <div className={classes.editorContainer}>
-      <ReactQuill
+      {/* <ReactQuill
        value={this.state.body}
        onChange={this.updateBody}
        placeholder='Anything you want to write down?'>
-       </ReactQuill>
+       </ReactQuill> */}
+       <SunEditor setContents={this.state.body} onChange={this.updateBody} />
      </div>
     );
   }
