@@ -36,7 +36,7 @@ class App extends React.Component {
     const updatedNote = await axios.patch(`/api/v1/users/${this.state.currentUser.id}/notes/${id}`, noteObj);
     console.log(updatedNote);
     const updatedNoteList = [...this.state.miniNotes];
-    updatedNoteList[this.state.miniNotes.indexOf(this.state.miniNotes.find(note => note.id === updatedNote.id))] = updatedNote;
+    updatedNoteList[this.state.miniNotes.indexOf(this.state.miniNotes.find(note => note.id === updatedNote.data.data.id))] = updatedNote.data.data;
     this.setState({ miniNotes: updatedNoteList }, () => console.log(this.state.miniNotes));
   }
 
