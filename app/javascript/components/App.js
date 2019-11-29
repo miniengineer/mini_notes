@@ -25,9 +25,9 @@ class App extends React.Component {
     }
   }
 
-  // componentDidMount = () => {
-  //   axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data }));
-  // }
+  componentDidMount = () => {
+    axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data }));
+  }
 
   selectNote = (note, index) => this.setState({ selectedNoteIndex: index, selectedNote: note });
 
@@ -35,6 +35,9 @@ class App extends React.Component {
     //update note in the db
     const updatedNote = await axios.patch(`/api/v1/users/${this.state.currentUser.id}/notes/${id}`, noteObj);
     console.log(updatedNote);
+    const updatedNoteList = [...this.state.miniNotes];
+    updatedNoteList[this.state.miniNotes.indexOf(this.state.miniNotes.find(note => note.id === updatedNote.id))] = updatedNote;
+    this.setState({ miniNotes: updatedNoteList }, () => console.log(this.state.miniNotes));
   }
 
   newMiniNote = async (title) => {
@@ -122,6 +125,7 @@ class App extends React.Component {
           noteUpdate={this.noteUpdate}></Editor> :
           null
         }
+        <footer></footer>
         <GoogleLogout
             className="logout"
             clientId="810788223244-gh5323o4hs7221o63ojgi5gafm9u5bie.apps.googleusercontent.com"
