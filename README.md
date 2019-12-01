@@ -1,6 +1,6 @@
-# Mini Notes 
+# MiniNotes 
 
-### Mini Notes is a responsive single-page application for taking notes.
+### MiniNotes is a responsive single-page application for taking notes.
 
 
 ### Try it on [Heroku](https://mini-notes.herokuapp.com/)!
