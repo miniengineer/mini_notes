@@ -128,7 +128,7 @@ class App extends React.Component {
         <footer></footer>
         <GoogleLogout
             className="logout"
-            clientId="810788223244-gh5323o4hs7221o63ojgi5gafm9u5bie.apps.googleusercontent.com"
+            clientId="810788223244-gju95h5f3ln99b0jenhl73lplo80f6jg.apps.googleusercontent.com"
             buttonText="Logout"
             onLogoutSuccess={this.logout} onFailure={this.onFailure} >
            </GoogleLogout>
