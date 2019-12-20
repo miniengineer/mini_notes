@@ -7,7 +7,7 @@ export default function Login(props) {
       <div>
         <h1>Please login first</h1>
         <GoogleLogin
-         clientId="810788223244-gju95h5f3ln99b0jenhl73lplo80f6jg.apps.googleusercontent.com"
+         clientId="810788223244-49b7s1dlae4qv38gtlttccu53ist3a15.apps.googleusercontent.com"
          buttonText="Login"
          onSuccess={props.onSuccessResponce}
          onFailure={props.onFailureResponce}
