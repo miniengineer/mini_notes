@@ -27,7 +27,6 @@ class SidebarItem extends React.Component {
     return(
      <div key={index}>
        <ListItem
-        className={classes.listItem}
         // selected is a property of listItem component and if it's true (meaning that it's selected) it will be highlighted
         selected={selectedNoteIndex === index}
         alignItems='flex-start'>
