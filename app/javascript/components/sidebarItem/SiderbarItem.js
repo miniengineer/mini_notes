@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import DeleteIcon from '@material-ui/icons/Delete';
+import { DeleteIcon, EditIcon } from '@material-ui/icons';
 import { removeHTMLTags } from '../utils/utils';
 
 
@@ -11,6 +11,8 @@ class SidebarItem extends React.Component {
 
   selectNote = (n, i) => this.props.selectNote(n,i);
 
+
+  ////////CHANGE TO SWEET ALERT
   deleteNote = (note) => {
     if(window.confirm(`Are you sure you want to delete: ${note.title}`)) {
       this.props.deleteNote(note);
@@ -35,6 +37,7 @@ class SidebarItem extends React.Component {
              secondary={removeHTMLTags(note.body.substring(0,30)) + '...'}>
              </ListItemText>
           </div>
+          <EditIcon className={classes.deleteIcon} ></EditIcon>
           <DeleteIcon onClick={() => this.deleteNote(note)}
            className={classes.deleteIcon}></DeleteIcon>
        </ListItem>
