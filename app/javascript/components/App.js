@@ -21,16 +21,10 @@ class App extends React.Component {
     }
   }
 
-  // ///////////Get all notes for the current user
-  // componentDidMount = () => {
-  //   this.getAllMiniNotes();
-  // }
-
-
-  // ///////////API call to get all notes for the current user from DB
-  // getAllMiniNotes = async () => {
-  //   await axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data }));
-  // }
+  ///////////Get all notes for the current user
+  componentDidMount = () => {
+    axios.get(`/api/v1/users/0/notes`);
+  }
 
   selectNote = (note, index) => this.setState({ selectedNoteIndex: index, selectedNote: note });
 
@@ -146,6 +140,6 @@ class App extends React.Component {
       </div>
     );
   }
-  }
+}
 
 export default App;
