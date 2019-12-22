@@ -26,7 +26,7 @@ class App extends React.Component {
   ///////////Get all notes for the current user
   componentDidMount = async () => {
     const miniNotesFromDb = await axios.get(`/api/v1/users/${this.state.currentUser}/notes`);
-    this.setState({ miniNotes: miniNotesFromDb.data.data, isLoggedIn: true })
+    this.setState({ miniNotes: miniNotesFromDb.data.data.sort((a, b) => a.id - b.id), isLoggedIn: true })
   }
 
   selectNote = (note, index) => this.setState({ selectedNoteIndex: index, selectedNote: note });
@@ -39,8 +39,10 @@ class App extends React.Component {
     this.setState({ miniNotes: updatedNoteList });
   }
 
-  noteTitleUpdate = (id, newTitle) => {
-    console.log({id, newTitle});
+  noteTitleUpdate = async (id, newTitle) => {
+    await axios.patch(`/api/v1/users/${this.state.currentUser}/notes/${id}`, { title: newTitle });
+    const response = await axios.get(`/api/v1/users/${this.state.currentUser}/notes`);
+    this.setState({ miniNotes: response.data.data.sort((a, b) => a.id - b.id) });
   }
 
   newMiniNote = async (title) => {

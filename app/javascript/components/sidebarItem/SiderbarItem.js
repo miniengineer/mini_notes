@@ -42,7 +42,7 @@ class SidebarItem extends React.Component {
 
   ////////////////API TO DB TO EDIT TITLE
   handleTitleEdit = (note) => {
-    this.props.noteTitleUpdate(note, this.state.title);
+    this.props.noteTitleUpdate(note.id, this.state.title);
     /////////////CLOSE DIALOG TABS
     this.setState({ open: false, choiceOpen: false });
   }
