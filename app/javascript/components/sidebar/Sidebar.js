@@ -70,7 +70,8 @@ class Sidebar extends React.Component {
                        index={i}
                        selectedNoteIndex={selectedNoteIndex}
                        selectNote={this.selectNote}
-                       deleteNote={this.deleteNote}>
+                       deleteNote={this.deleteNote}
+                       noteTitleUpdate={this.props.noteTitleUpdate}>
                      </SidebarItem>
                      <Divider></Divider>
                     </div>

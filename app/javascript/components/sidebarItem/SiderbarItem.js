@@ -20,27 +20,53 @@ import TextField from '@material-ui/core/TextField';
 
 class SidebarItem extends React.Component {
   state = {
-    open: false
+    open: false,
+    choiceOpen: false,
+    title: ''
+  }
+
+  //////////////OPEN TITLE EDIT DIALOG TAB
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  }
+
+  ////////////OPEN EDIT CHOICE DIALOG TAB
+  handleChoiceOpen = () => {
+    this.setState({ choiceOpen: true });
+  }
+
+  ///////////CANCEL EDITING (CLOSE THE DIALOG TAB)
+  handleClose = () => {
+    this.setState({ open: false, choiceOpen: false });
+  }
+
+  ////////////////API TO DB TO EDIT TITLE
+  handleTitleEdit = (note) => {
+    this.props.noteTitleUpdate(note, this.state.title);
+    /////////////CLOSE DIALOG TABS
+    this.setState({ open: false, choiceOpen: false });
+  }
+
+  /////////////UPDATE STATE WHILE USER INPUTS NEW TITLE
+  noteTitleUpdate = (e) => {
+    this.setState({ title: e.target.value });
+  }
+
+  ////////////////OPEN REACT QUILL TO EDIT NOTE
+  selectNote = (n, i) => {
+    this.props.selectNote(n,i);
+    //////CLOSE DIALOG TAB
+    this.setState({ choiceOpen: false });
   }
 
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
-  selectNote = (n, i) => this.props.selectNote(n,i);
-
-
-  ////////CHANGE TO SWEET ALERT
+  //TODO CHANGE TO SWEET ALERT
   deleteNote = (note) => {
     if(window.confirm(`Are you sure you want to delete: ${note.title}`)) {
       this.props.deleteNote(note);
     }
   }
+
 
   render() {
 
@@ -58,9 +84,22 @@ class SidebarItem extends React.Component {
              secondary={removeHTMLTags(note.body.substring(0,30)) + '...'}>
              </ListItemText>
              <div>
-      <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-        Edit title
-      </Button>
+      <Dialog
+        open={this.state.choiceOpen}
+        onClose={this.handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Edit Note Title"}</DialogTitle>
+        <DialogActions>
+          <Button onClick={this.handleClickOpen} color="primary">
+            Edit Title
+          </Button>
+          <Button onClick={() => this.selectNote(note, index)} color="primary" autoFocus>
+            Edit Note
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Dialog
         open={this.state.open}
         onClose={this.handleClose}
@@ -69,20 +108,23 @@ class SidebarItem extends React.Component {
       >
         <DialogTitle id="alert-dialog-title">{"Edit Note Title"}</DialogTitle>
         <DialogContent>
-        <TextField id="outlined-basic" variant="outlined" onChange={(e) => console.log(e.target.value)} />
+        <TextField id="outlined-basic" variant="outlined"
+         onChange={this.noteTitleUpdate}
+         />
         </DialogContent>
         <DialogActions>
           <Button onClick={this.handleClose} color="primary">
-            Disagree
+            Cancel
           </Button>
-          <Button onClick={this.handleClose} color="primary" autoFocus>
-            Agree
+          <Button onClick={() => this.handleTitleEdit(note)} color="primary" autoFocus>
+            Edit
           </Button>
         </DialogActions>
       </Dialog>
     </div>
           </div>
-          <EditIcon onClick={() => this.selectNote(note, index)} className={classes.editIcon}></EditIcon>
+          {/* <EditIcon onClick={() => this.selectNote(note, index)} className={classes.editIcon}></EditIcon> */}
+          <EditIcon onClick={this.handleChoiceOpen} className={classes.editIcon}></EditIcon>
           <DeleteIcon onClick={() => this.deleteNote(note)} className={classes.deleteIcon}></DeleteIcon>
        </ListItem>
      </div>

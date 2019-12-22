@@ -39,6 +39,10 @@ class App extends React.Component {
     this.setState({ miniNotes: updatedNoteList });
   }
 
+  noteTitleUpdate = (id, newTitle) => {
+    console.log({id, newTitle});
+  }
+
   newMiniNote = async (title) => {
     //create a note
     const miniNote = {
@@ -121,7 +125,8 @@ class App extends React.Component {
          miniNotes = {this.state.miniNotes}
          deleteNote={this.deleteMiniNote}
          selectNote={this.selectNote}
-         newMiniNote={this.newMiniNote}>
+         newMiniNote={this.newMiniNote}
+         noteTitleUpdate={this.noteTitleUpdate}>
         </Sidebar>
         {
           this.state.selectedNote ?
