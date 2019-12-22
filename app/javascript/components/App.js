@@ -21,17 +21,6 @@ class App extends React.Component {
     }
   }
 
-  // ///////////Get all notes for the current user
-  // componentDidMount = () => {
-  //   this.getAllMiniNotes();
-  // }
-
-
-  // ///////////API call to get all notes for the current user from DB
-  // getAllMiniNotes = async () => {
-  //   await axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`).then(response => this.setState({ miniNotes: response.data.data }));
-  // }
-
   selectNote = (note, index) => this.setState({ selectedNoteIndex: index, selectedNote: note });
 
   noteUpdate = async (id, noteObj) => {
@@ -40,6 +29,12 @@ class App extends React.Component {
     const updatedNoteList = [...this.state.miniNotes];
     updatedNoteList[this.state.miniNotes.indexOf(this.state.miniNotes.find(note => note.id === updatedNote.data.data.id))] = updatedNote.data.data;
     this.setState({ miniNotes: updatedNoteList });
+  }
+
+  noteTitleUpdate = async (id, newTitle) => {
+    await axios.patch(`/api/v1/users/${this.state.currentUser.id}/notes/${id}`, { title: newTitle });
+    const response = await axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`);
+    this.setState({ miniNotes: response.data.data.sort((a, b) => a.id - b.id) });
   }
 
   newMiniNote = async (title) => {
@@ -73,7 +68,7 @@ class App extends React.Component {
 
     await axios.delete(`/api/v1/users/${this.state.currentUser.id}/notes/${note.id}`);
     const afterDeletion = await axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`);
-    this.setState({ miniNotes: afterDeletion.data.data });
+    this.setState({ miniNotes: afterDeletion.data.data.sort((a, b) => a.id - b.id) });
   }
 
     ////////////////////Get all notes for current user using logged-in info
@@ -86,7 +81,7 @@ class App extends React.Component {
       if (currentUser) {
         await this.setState({ currentUser });
         const miniNotesFromDb = await axios.get(`/api/v1/users/${this.state.currentUser.id}/notes`);
-        this.setState({ miniNotes: miniNotesFromDb.data.data, isLoggedIn: true });
+        this.setState({ miniNotes: miniNotesFromDb.data.data.sort((a, b) => a.id - b.id), isLoggedIn: true });
         // .then(response => this.setState({ miniNotes: response.data.data, isLoggedIn: true }))
       } else {
         const response = await axios.post('/api/v1/users', { username, email });
@@ -124,7 +119,8 @@ class App extends React.Component {
          miniNotes = {this.state.miniNotes}
          deleteNote={this.deleteMiniNote}
          selectNote={this.selectNote}
-         newMiniNote={this.newMiniNote}>
+         newMiniNote={this.newMiniNote}
+         noteTitleUpdate={this.noteTitleUpdate}>
         </Sidebar>
         {
           this.state.selectedNote ?
@@ -146,6 +142,6 @@ class App extends React.Component {
       </div>
     );
   }
-  }
+}
 
 export default App;

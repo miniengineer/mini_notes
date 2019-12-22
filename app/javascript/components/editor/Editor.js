@@ -2,6 +2,7 @@ import React from 'react';
 import debounce from '../utils/utils';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './styles';
+import Typography from '@material-ui/core/Typography';
 
 import 'react-quill/dist/quill.snow.css';
 import ReactQuill from 'react-quill';
