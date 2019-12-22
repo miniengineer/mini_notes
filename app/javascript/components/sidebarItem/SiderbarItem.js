@@ -8,7 +8,29 @@ import EditIcon from '@material-ui/icons/Edit';
 import { removeHTMLTags } from '../utils/utils';
 
 
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+
+
+
 class SidebarItem extends React.Component {
+  state = {
+    open: false
+  }
+
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   selectNote = (n, i) => this.props.selectNote(n,i);
 
@@ -35,6 +57,30 @@ class SidebarItem extends React.Component {
              primary={note.title}
              secondary={removeHTMLTags(note.body.substring(0,30)) + '...'}>
              </ListItemText>
+             <div>
+      <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
+        Edit title
+      </Button>
+      <Dialog
+        open={this.state.open}
+        onClose={this.handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Edit Note Title"}</DialogTitle>
+        <DialogContent>
+        <TextField id="outlined-basic" variant="outlined" onChange={(e) => console.log(e.target.value)} />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={this.handleClose} color="primary">
+            Disagree
+          </Button>
+          <Button onClick={this.handleClose} color="primary" autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
           </div>
           <EditIcon onClick={() => this.selectNote(note, index)} className={classes.editIcon}></EditIcon>
           <DeleteIcon onClick={() => this.deleteNote(note)} className={classes.deleteIcon}></DeleteIcon>
